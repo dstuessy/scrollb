@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>scrollb.js</title>
+
+		<script type="text/javascript" src="scrollb.js"></script>
+
+		<style>
+			body {
+				height: 1000px;
+				border: 10px solid #003366;
+			}
+
+			#scroll_bar {
+				width: 10px;
+				background-color: #000;
+			}
+
+			.wrapper {
+				width: 300px;
+				overflow: hidden;
+				margin-left: -15px;
+			}
+			.outer {
+				height: 400px;
+				width: 300px;
+				padding: 10px 0;
+				background-color: #ffffff;
+				overflow: auto;
+				margin-left: 15px;
+			}
+			.inner {
+				height: 134%;
+				width: 100%;
+				margin: 10px 0;
+				background-color: #666666;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="wrapper">
+			<div class="outer">
+				<div class="inner">
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			new ScrollBar({
+				id: "scroll_bar",
+				selector: ".outer",
+				duringScroll: function (scrollBar) {
+					scrollBar.scrollEl.style.backgroundColor = "#333";
+				},
+				endScroll: function (scrollBar) {
+					scrollBar.scrollEl.style.backgroundColor = "#000";
+				}
+			});
+		</script>
+	</body>
+</html>
