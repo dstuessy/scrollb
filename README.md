@@ -1,4 +1,4 @@
-# scrollb
+# scrollb.js
 JavaScript library for custom scrollbars.
 
 ###How To Use:
@@ -31,3 +31,7 @@ This needs to proceed the element to which you want to attach the scrollbar.
 * **"selector"** represents the css selector for the element to which the scrollbar should be attached.
 * **"duringScroll"** represents the function to be executed when the scrollbar starts scrolling. This is executed on mousedown of the scroll bar element.
 * **"endScroll"** represents the function to be executed when the scrollbar stops scrolling. This is executed on mouseup of the window object.
+
+###Notes on CSS.
+
+By default the scrollbar has none. This means it won't necessarily be visible. To reverse this, add your own in a '.css' file or 'style' element. 
