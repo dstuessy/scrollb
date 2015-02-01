@@ -1,3 +1,10 @@
+/*!
+ * scrollb.js
+ *
+ * @author: Daniel Stuessy 
+ * @version: 1.0
+ * @description: A JavaScript class for making custom HTML scrollbars.
+ */
 var ScrollBar = (function(){
 
 	/**
