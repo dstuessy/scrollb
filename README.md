@@ -36,4 +36,3 @@ This needs to proceed the element to which you want to attach the scrollbar.
 
 By default the scrollbar has no CSS styling. This means it won't necessarily be visible. To reverse this, add your own in a '.css' file or 'style' element. 
 
-test commit
