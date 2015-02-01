@@ -50,11 +50,13 @@
 			new ScrollBar({
 				id: "scroll_bar",
 				selector: ".outer",
-				duringScroll: function (scrollBar) {
+				beforeScrollClick: function (scrollBar) {
 					scrollBar.scrollEl.style.backgroundColor = "#333";
+					console.log('before');
 				},
-				endScroll: function (scrollBar) {
+				afterScrollClick: function (scrollBar) {
 					scrollBar.scrollEl.style.backgroundColor = "#000";
+					console.log('after');
 				}
 			});
 		</script>

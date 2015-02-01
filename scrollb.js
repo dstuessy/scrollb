@@ -1,9 +1,9 @@
 /*!
- * scrollb.js
- *
+ * @title: scrollb.js
  * @author: Daniel Stuessy 
- * @version: 1.0
+ * @version: 1.1
  * @description: A JavaScript class for making custom HTML scrollbars.
+ * @license: MIT License
  */
 var ScrollBar = (function(){
 
@@ -26,8 +26,10 @@ var ScrollBar = (function(){
 		this.scrollEl = document.createElement('div');
 		this.parentEl = this.el.parentNode;
 		this.mousedown = false;
-		this.duringScroll = ( options.duringScroll || function () {} );
-		this.endScroll = ( options.endScroll || function () {} );
+		this.beforeScrollClick = ( options.beforeScrollClick || function () {} );
+		this.afterScrollClick = ( options.afterScrollClick || function () {} );
+		this.duringScroll = ( options.duringScroll || function () {} ); // not currently used
+		this.duringNotScroll = ( options.duringNotScroll || function () {} ); // not currently used
 		this.outerHeight;
 		this.scrollHeight;
 		this.ratio;
@@ -145,9 +147,11 @@ var ScrollBar = (function(){
 		};
 
 		// ON MOUSEDOWN 
-		this.scrollEl.onmousedown = function () {
+		this.scrollEl.onmousedown = function (e) {
 
 			self.mousedown = true;
+
+			self.scrollCenterY = e.offsetY;
 
 			body.style['cursor'] = 'default';
 			body.style['-webkit-touch-callout'] = 'none';
@@ -157,13 +161,16 @@ var ScrollBar = (function(){
 			body.style['-ms-user-select'] = 'none';
 			body.style['user-select'] = 'none';
 
-			self.duringScroll(self);
+			self.beforeScrollClick(self);
 		};
 
 		// ON MOUSEUP
 		window.onmouseup = function () {
 
 			self.mousedown = false;
+
+			self.scrollCenterX = undefined;
+			self.scrollCenterY = undefined;
 
 			body.style['cursor'] = '';
 			body.style['-webkit-touch-callout'] = '';
@@ -173,19 +180,17 @@ var ScrollBar = (function(){
 			body.style['-ms-user-select'] = '';
 			body.style['user-select'] = '';
 
-			self.endScroll(self);
+			self.afterScrollClick(self);
 		};
 
 		// ON MOUSEMOVE
 		window.onmousemove = function (e) {
 			if (self.mousedown) {
 
-				var mousemoveX = e.movementX;
-				var mousemoveY = e.movementY;
+				var mouseY = e.clientY;
+				var mouseDeltaY = mouseY - (self.scrollCenterY + self.top);
 
-				var mousemove = mousemoveY;
-
-				self.el.scrollTop = self.el.scrollTop + (mousemove / self.ratio);
+				self.el.scrollTop = Math.round(self.el.scrollTop + (mouseDeltaY / self.ratio));
 			}
 		};
 	};
