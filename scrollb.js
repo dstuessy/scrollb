@@ -5,7 +5,7 @@
  * @description: A JavaScript class for making custom HTML scrollbars.
  * @license: MIT License
  */
-var ScrollBar = (function(){
+var ScrollBar = (function () {
 
 	/**
 	 * A Class representing a scroll bar.
@@ -22,7 +22,7 @@ var ScrollBar = (function(){
 		// SET PROPERTIES
 		this.id = options.id;
 		this.selector = options.selector;
-		this.el = document.querySelector( this.selectorID );
+		this.el = document.getElementById( this.selectorID );
 		this.scrollEl = document.createElement('div');
 		this.parentEl = this.el.parentNode;
 		this.mousedown = false;
