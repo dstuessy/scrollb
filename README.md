@@ -28,7 +28,8 @@ new ScrollBar({
 This needs to proceed the element to which you want to attach the scrollbar.
 
 * **"id"** represents the element id to be set to the new scrollbar element. 
-* **"selector"** represents the css selector for the element to which the scrollbar should be attached.
+* **"selectorID"** represents the 'id' of the elment for which to create a scrollbar.
+* **"el"** represents the HTML object (document.getElementById('anElement')) for which to create a scrollbar.
 * **"beforeScrollClick"** represents the function to be executed when the scrollbar starts scrolling. This is executed on mousedown of the scroll bar element.
 * **"afterScrollClick"** represents the function to be executed when the scrollbar stops scrolling. This is executed on mouseup of the window object.
 
