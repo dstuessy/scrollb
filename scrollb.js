@@ -22,7 +22,7 @@ var ScrollBar = (function(){
 		// SET PROPERTIES
 		this.id = options.id;
 		this.selector = options.selector;
-		this.el = document.querySelector( this.selector );
+		this.el = document.querySelector( this.selectorID );
 		this.scrollEl = document.createElement('div');
 		this.parentEl = this.el.parentNode;
 		this.mousedown = false;
