@@ -15,7 +15,7 @@ Then use the following code to add a scrollbar to a given element.
 ```javascript
 new ScrollBar({
 	id: "scroll_bar",
-	selector: ".outer",
+	selectorID: "outerID",
 	beforeScrollClick: function (scrollBar) {
 		scrollBar.scrollEl.style.backgroundColor = "#333";
 	},
