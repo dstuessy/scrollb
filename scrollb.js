@@ -22,8 +22,8 @@ var ScrollBar = (function () {
 		// SET PROPERTIES
 		this.id = options.id;
 		this.selectorID = options.selectorID;
-		this.el = options.el;
-		if (this.selectorID != null) this.el = document.getElementById( this.selectorID );
+		this.el = options.el,
+		this.el = (this.selectorID != null) ? document.getElementById( this.selectorID ) : this.el;
 		this.scrollEl = document.createElement('div');
 		this.parentEl = this.el.parentNode;
 		this.mousedown = false;
@@ -77,7 +77,6 @@ var ScrollBar = (function () {
 	 * Obtains ratio and times it by the scrollbar's
 	 * outerHeight.
 	 *
-	 * Rounds the height.
 	 *
 	 * @return {undefined}
 	 */
@@ -87,8 +86,6 @@ var ScrollBar = (function () {
 
 		// set height
 		this.height = this.outerHeight * this.ratio;
-		// round height
-		this.height = Math.round( this.height );
 	};
 	/**
 	 * Sets the top and right position of the
@@ -97,7 +94,6 @@ var ScrollBar = (function () {
 	 * @return {undefined}
 	 */
 	ScrollBar.prototype.setPosition = function () {
-
 		this.top = this.el.offsetTop + this.el.clientTop + (this.el.scrollTop * this.ratio);
 		var rectEl = this.el.getBoundingClientRect();
 		this.right = this.el.offsetLeft + this.el.clientLeft + this.el.clientWidth - this.scrollEl.clientWidth;
@@ -112,9 +108,7 @@ var ScrollBar = (function () {
 	 * @return {undefined}
 	 */
 	ScrollBar.prototype.setRatio = function () {
-
 		this.setHeights();
-		
 		this.ratio = this.outerHeight / this.scrollHeight;
 	};
 	/**
@@ -125,7 +119,6 @@ var ScrollBar = (function () {
 	 * @return {undefined}
 	 */
 	ScrollBar.prototype.setHeights = function () {
-
 		this.outerHeight = this.el.clientHeight;
 		this.scrollHeight = this.el.scrollHeight;
 	};
@@ -136,23 +129,20 @@ var ScrollBar = (function () {
 	 */
 	ScrollBar.prototype.setEventListeners = function () {
 		
-		var self = this;
 		var scrollEl = document.getElementById(this.id);
 		var body = document.getElementsByTagName('body')[0];
 
 		// ON SCROLL EVENT 
 		this.el.onscroll = function () {
-
-			self.setPosition();
-			self.display();
-		};
+			this.setPosition();
+			this.display();
+		}.bind(this);
 
 		// ON MOUSEDOWN 
 		this.scrollEl.onmousedown = function (e) {
 
-			self.mousedown = true;
-
-			self.scrollCenterY = e.offsetY;
+			this.mousedown = true;
+			this.scrollCenterY = e.offsetY;
 
 			body.style['cursor'] = 'default';
 			body.style['-webkit-touch-callout'] = 'none';
@@ -162,38 +152,37 @@ var ScrollBar = (function () {
 			body.style['-ms-user-select'] = 'none';
 			body.style['user-select'] = 'none';
 
-			self.beforeScrollClick(self);
-		};
+			this.beforeScrollClick(this);
+		}.bind(this);
 
 		// ON MOUSEUP
 		window.onmouseup = function () {
+			if (this.mousedown) {
 
-			self.mousedown = false;
+				this.mousedown = false;
+				this.scrollCenterX = undefined;
+				this.scrollCenterY = undefined;
 
-			self.scrollCenterX = undefined;
-			self.scrollCenterY = undefined;
+				body.style['cursor'] = '';
+				body.style['-webkit-touch-callout'] = '';
+				body.style['-webkit-user-select'] = '';
+				body.style['-khtml-user-select'] = '';
+				body.style['-moz-user-select'] = '';
+				body.style['-ms-user-select'] = '';
+				body.style['user-select'] = '';
 
-			body.style['cursor'] = '';
-			body.style['-webkit-touch-callout'] = '';
-			body.style['-webkit-user-select'] = '';
-			body.style['-khtml-user-select'] = '';
-			body.style['-moz-user-select'] = '';
-			body.style['-ms-user-select'] = '';
-			body.style['user-select'] = '';
-
-			self.afterScrollClick(self);
-		};
+				this.afterScrollClick(this);
+			}
+		}.bind(this);
 
 		// ON MOUSEMOVE
 		window.onmousemove = function (e) {
-			if (self.mousedown) {
-
+			if (this.mousedown) {
 				var mouseY = e.clientY;
-				var mouseDeltaY = mouseY - (self.scrollCenterY + self.top);
-
-				self.el.scrollTop = Math.round(self.el.scrollTop + (mouseDeltaY / self.ratio));
+				var mouseDeltaY = e.movementY; //mouseY - (this.scrollCenterY + this.top);
+				this.el.scrollTop = this.el.scrollTop + (mouseDeltaY / this.ratio);
 			}
-		};
+		}.bind(this);
 	};
 
 	return ScrollBar;
