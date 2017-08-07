@@ -2,7 +2,7 @@
 
 JavaScript library for custom scrollbars.
 
-This project is discontinued. It's also a bit broken and don't suggest using it.
+This project is discontinued. It's also a bit broken so I don't suggest using it.
 
 ## How To Use:
 
